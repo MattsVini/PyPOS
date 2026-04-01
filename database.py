@@ -4,8 +4,8 @@ import os
 load_dotenv()
 
 
-def create_table():
-    connection = postgres.connect(os.getenv("URL_DATABASE"))
+def create_table(URL_DATABASE):
+    connection = postgres.connect(URL_DATABASE)
     cursor = connection.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS shop_owner(
             id SERIAL PRIMARY KEY NOT NULL,
@@ -32,6 +32,6 @@ def create_table():
     connection.commit()
     cursor.close()
     connection.close()
-create_table()
+
 
 
