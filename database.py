@@ -18,13 +18,13 @@ def create_table():
         name VARCHAR(100)NOT NULL,
         PRICE DECIMAL(10, 2)NOT NULL,
         QUANTITY INT,
-        shop_owner_id REFERENCES shop_owner(id)
+        shop_owner_id INT REFERENCES shop_owner(id)
         )""")
     cursor.execute("""CREATE TABLE IF NOT EXISTS sale(
     id SERIAL PRIMARY KEY,
     quantity_sold INT NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
-    date_sale TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_sale TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     product_id int REFERENCES product(id),
     shop_owner_id int REFERENCES shop_owner(id)
     )""")
@@ -32,5 +32,6 @@ def create_table():
     connection.commit()
     cursor.close()
     connection.close()
+create_table()
 
 
