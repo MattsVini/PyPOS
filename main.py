@@ -7,8 +7,7 @@ import os
 
 @asynccontextmanager
 async def lifespan(app):
-    URL_DATABASE = os.environ["URL_DATABASE"]
-    database.create_table(URL_DATABASE)
+    database.create_table()
     print("done DB!")
     print("Register!")
     name = "Test"
