@@ -10,7 +10,16 @@ async def lifespan(app):
     URL_DATABASE = os.environ["URL_DATABASE"]
     database.create_table(URL_DATABASE)
     print("done DB!")
+    print("Register!")
+    name = "Test"
+    email = "test@test"
+    password = "test1234-H@)DF"
+    password_hash = Account.hash_password(password)
+    auth_register = database.register_account(name, email, password_hash)
+    print(auth_register)
     yield
+
+    print("Shutting down")
 
 
 app = FastAPI(lifespan=lifespan)
@@ -19,12 +28,3 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/")
 def request_database():
     return {"status": "online"}
-
-
-print("Register!")
-name = "Test"
-email = "test@test"
-password = "test1234-H@)DF"
-password_hash = Account.hash_password(password)
-auth_register = database.register_account(name, email, password_hash)
-print(auth_register)
