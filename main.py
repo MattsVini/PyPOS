@@ -1,10 +1,10 @@
 from contextlib import asynccontextmanager
-
+from account import Account
 from fastapi import FastAPI
 import database
 import os
-from dotenv import load_dotenv
-app = FastAPI()
+
+
 @asynccontextmanager
 async def lifespan(app):
     URL_DATABASE = os.environ["URL_DATABASE"]
@@ -12,7 +12,19 @@ async def lifespan(app):
     print("done DB!")
     yield
 
+
 app = FastAPI(lifespan=lifespan)
+
+
 @app.get("/")
 def request_database():
-    return {"status: online"}
+    return {"status": "online"}
+
+
+print("Register!")
+name = "Test"
+email = "test@test"
+password = "test1234-H@)DF"
+password_hash = Account.hash_password(password)
+auth_register = database.register_account(name, email, password_hash)
+print(auth_register)
